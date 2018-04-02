@@ -1,0 +1,29 @@
+Options +FollowSymLinks
+IndexIgnore */*
+RewriteEngine on
+
+RewriteCond %{REQUEST_URI} !^/(web)
+RewriteRule ^assets/(.*)$ /web/assets/$1 [L]
+RewriteRule ^css/(.*)$ web/css/$1 [L]
+RewriteRule ^fonts/(.*)$ web/fonts/$1 [L]
+RewriteRule ^js/(.*)$ web/js/$1 [L]
+RewriteRule ^images/(.*)$ web/images/$1 [L]
+RewriteRule ^libs/(.*)$ web/libs/$1 [L]
+RewriteRule ^helper/(.*)$ web/helper/$1 [L]
+RewriteRule (.*) /web/$1
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /web/index.php
+
+Redirect 301 /index.php http://21-savage.com
+
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.php\ HTTP/ 
+RewriteRule ^index\.php$ http://21-savage.com/ [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^www\.21-savage\.com$ [NC]
+RewriteRule ^(.*)$ http://21-savage.com/$1 [R=301,L]
+
+Redirect 301 /robots.txt http://21-savage.com/web/robots.txt
+
+Redirect 301 /sitemap.xml http://21-savage.com/web/sitemap.xml
